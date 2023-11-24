@@ -19,3 +19,5 @@ ggplot(
   mapping = aes(x = rank, y = condition)) +     
   geom_point(position = jitter_set, alpha = 0.5, color = "#7c20c1") + 
   scale_x_continuous(breaks = min(df_med$rank):max(df_med$rank))
+
+t_res <- lm(rank ~ -1 + condition, data = df_med) # -1: the output will change the name of base group from (Intercept) to an actual base group name
