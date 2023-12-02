@@ -20,4 +20,29 @@ ggplot(
   geom_point(position = jitter_set, alpha = 0.5, color = "#7c20c1") + 
   scale_x_continuous(breaks = min(df_med$rank):max(df_med$rank))
 
-t_res <- lm(rank ~ -1 + condition, data = df_med) # -1: the output will change the name of base group from (Intercept) to an actual base group name
+# Build the linear regression model
+t_res <- lm(rank ~ - 1 + condition, data = df_med) # -1: the output will change the name of base group from (Intercept) to an actual base group name
+
+# Tidy the linear regression modeling result
+t_freq <- t_res |> 
+   tidy() |>
+   mutate(condition = str_remove(term, "condition"), .before = 1) |> 
+   select(-term)
+# str_remove() removes the text "condition" from the term column, and the result is stored in the new condition column. The .before = 1 argument specifies that the new column should be placed as the first column in the data frame.
+
+# Make the predictions
+pred_t_res <- predict(object = t_res, newdata = data_grid(df_med, condition), 
+                      se.fit = T, interval = "prediction", level = 0.95)
+# data_grid generates an evenly spaced grid of points from the data
+
+# Tidy the prediction result
+pred_t_freq <- t_res |>
+  broom::augment(newdata = data_grid(df_med, condition), se_fit = T) |>
+  mutate(
+    # Estimate the standard error of prediction
+    .se.pred = sqrt(.se.fit^2 + pred_t_res$residual.scale^2), 
+    df = pred_t_res$df) 
+
+# augment() generates additional columns in the data frame containing the predicted values, and standard errors for the fitted values.
+# Variance of prediction is the summation of variance of fit and variance of residual
+
