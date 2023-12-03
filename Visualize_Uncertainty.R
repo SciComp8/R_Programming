@@ -51,7 +51,7 @@ pred_t_freq <- t_res |>
 # Variance of prediction is the summation of variance of fit and variance of residual
 
 # Visualize the point predictions per condition, and original data points
-means_t_freq |>
+t_freq |>
   ggplot(mapping = aes(x = estimate, y = condition)) + 
   geom_point(mapping = aes(x = rank), 
              position = jitter_set, 
