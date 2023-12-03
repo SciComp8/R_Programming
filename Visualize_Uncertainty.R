@@ -75,7 +75,7 @@ pred_t_freq |>
     mapping = aes(x = rank),
     position = jitter_set,
     alpha = 0.7, 
-    color = "#8c96c6"
+    color = "#7c20c1"
    ) +
   scale_x_continuous(name = "Rank", 
                      breaks = min(df_med$rank):max(df_med$rank), 
