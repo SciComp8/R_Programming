@@ -1,3 +1,5 @@
+# Further reading: https://www.pnas.org/doi/full/10.1073/pnas.2302491120
+
 if (!requireNamespace("easypackages", quietly = TRUE)) {
   install.packages("easypackages")
 }
