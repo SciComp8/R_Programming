@@ -64,7 +64,7 @@ t_freq |>
                      limits = c(0, 10)) + 
   labs(title = "Frequentist t-test, estimated rank by condition")
 
-# Visualize the point predictions per condition, 66% and 95% confidence interval, and original data points
+# Visualize the point prediction per condition, 66% and 95% confidence interval, and original data points
 pred_t_freq |>
   ggplot(mapping = aes(y = condition)) + 
   ggdist::stat_pointinterval(
@@ -82,3 +82,32 @@ pred_t_freq |>
                      limits = c(0, 10)) + 
   labs(title = "Frequentist t-test, estimated rank by condition",
        subtitle = "Confidence interval widths: 0.66 and 0.95")
+
+# Visualize the point prediction per condition, prediction distribution per condition, and original data points
+pred_t_freq |>
+  ggplot(mapping = aes(y = condition)) + 
+  ggdist::stat_slab(
+    mapping = aes(xdist = dist_student_t(df = df, mu = .fitted, sigma = .se.pred)),
+    slab_color = "#8c96c6",
+    fill = NA,
+    scale = 0.8) + # scale: What proportion of the region allocated to this geom to use to draw the slab. If scale = 1, slabs that use the maximum range will just touch each other.
+  ggrepel::geom_label_repel(
+    mapping = aes(estimate + 2, y = condition),
+    data = t_freq |> slice_tail(), # Select the last rows of the data frame, 
+    color = "#9ECAE1",
+    label = "Prediction distribution", 
+    box.padding = 1, # There will be some space between the label text and the box enclosing it
+    position = position_nudge(y = 0.3), max.overlaps = Inf, seed = 15) +
+    # There is no maximum limit for label overlaps, allowing labels to be placed even if they overlap with each other.
+    # Using a seed ensures that the same random positioning is reproducible.
+  ggplot2::geom_point(
+    data = df_med, 
+    mapping = aes(x = rank),
+    position = jitter_set,
+    alpha = 0.7, 
+    color = "#7c20c1"
+   ) +
+  scale_x_continuous(name = "Rank", 
+                     breaks = min(df_med$rank):max(df_med$rank), 
+                     limits = c(0, 10)) + 
+  labs(title = "Frequentist t-test, estimated rank by condition")
