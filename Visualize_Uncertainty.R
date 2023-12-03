@@ -46,3 +46,16 @@ pred_t_freq <- t_res |>
 # augment() generates additional columns in the data frame containing the predicted values, and standard errors for the fitted values.
 # Variance of prediction is the summation of variance of fit and variance of residual
 
+# Visualize the predictions and original data points
+means_t_freq %>%
+  ggplot(mapping = aes(x = estimate, y = condition)) + 
+  geom_point(mapping = aes(x = rank), 
+             position = jitter_set, 
+             data = df_med, 
+             alpha = 0.7, 
+             color = "#7c20c1") +
+  geom_point(position = position_nudge(y = 0.2)) + # Nudge estimate value per condition vertically by 0.2 units; used for visual separation between points with the same x-values
+  scale_x_continuous(name = "Rank", # Set the x-axis title to Rank
+                     breaks = min(df_med$rank):max(df_med$rank), 
+                     limits = c(0, 10)) + 
+  labs(title = "Frequentist t-test, estimated rank by condition")
