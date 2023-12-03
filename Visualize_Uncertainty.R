@@ -13,6 +13,7 @@ theme_set(theme_tidybayes())
   select(-group)
 )
 
+# Visualize the original data points
 jitter_set <- position_jitter(height = 0.1, seed = 689) # A random seed to make the jitter reproducible
 ggplot(
   data = df_med,
@@ -46,7 +47,7 @@ pred_t_freq <- t_res |>
 # augment() generates additional columns in the data frame containing the predicted values, and standard errors for the fitted values.
 # Variance of prediction is the summation of variance of fit and variance of residual
 
-# Visualize the predictions and original data points
+# Visualize the point predictions per condition, and original data points
 means_t_freq |>
   ggplot(mapping = aes(x = estimate, y = condition)) + 
   geom_point(mapping = aes(x = rank), 
@@ -59,3 +60,22 @@ means_t_freq |>
                      breaks = min(df_med$rank):max(df_med$rank), 
                      limits = c(0, 10)) + 
   labs(title = "Frequentist t-test, estimated rank by condition")
+
+# Visualize the point predictions per condition, 66% and 95% confidence interval, and original data points
+pred_t_freq |>
+  ggplot(mapping = aes(y = condition)) + 
+  ggdist::stat_pointinterval(
+    mapping = aes(xdist = dist_student_t(df = df, mu = .fitted, sigma = .se.fit)),
+    position = position_nudge(y = .2)) +
+  ggplot2::geom_point(
+    data = df_med, 
+    mapping = aes(x = rank),
+    position = jitter_set,
+    alpha = 0.7, 
+    color = "#8c96c6"
+   ) +
+  scale_x_continuous(name = "Rank", 
+                     breaks = min(df_med$rank):max(df_med$rank), 
+                     limits = c(0, 10)) + 
+  labs(title = "Frequentist t-test, estimated rank by condition",
+       subtitle = "Confidence interval widths: 0.66 and 0.95")
