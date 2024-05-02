@@ -1,0 +1,28 @@
+---
+title: "Cross-reference the figure in Quarto!"
+author: "Anni Liu"
+format:
+  html:
+    code-line-numbers: true
+editor: visual
+---
+
+## Fuel economy data
+
+@fig-displ-hwy is a scatter plot of engine displacement and highway miles (per in popular models of cars.
+
+```{r}
+#| label: fig-displ-hwy
+#| fig-cap: A scatterplot of engine displacement (in litres) and highway miles (per gallon).
+#| fig-width: 5
+#| fig-asp: 0.618
+#| fig-alt: A scatterplot of engine displacement (in litres) and highway miles (per gallon).
+#| warning: false
+#| output-location: column-fragment
+
+library(ggplot2)
+mpg |> 
+  ggplot(mapping = aes(displ, hwy, colour = class)) + 
+    geom_point() + 
+    theme_bw()
+```
