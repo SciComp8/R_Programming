@@ -19,3 +19,7 @@ qnorm(0.95, 6, 9)
 # Assume X ~ Uniform. Plot the density function
 theta=seq(0,1,.01)
 plot(theta, dbeta(theta,1,1), tyle='l')
+
+# Assume X ~ Beta(4, 3). Plot the density function
+theta=seq(0,1,.01)
+plot(theta, dbeta(theta,4,3), tyle='l')
