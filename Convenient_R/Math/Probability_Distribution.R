@@ -15,3 +15,7 @@ qnorm(0.90, 6, 9)
 
 # Assume X ~ Norm(6, 9). Find y that P(-y < Y < y) = 0.90
 qnorm(0.95, 6, 9)
+
+# Assume X ~ Uniform. Plot the density function
+theta=seq(0,1,.01)
+plot(theta, dbeta(theta,1,1), tyle='l')
