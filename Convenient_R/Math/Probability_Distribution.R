@@ -16,10 +16,15 @@ qnorm(0.90, 6, 9)
 # Assume X ~ Norm(6, 9). Find y that P(-y < Y < y) = 0.90
 qnorm(0.95, 6, 9)
 
-# Assume X ~ Uniform. Plot the density function
+# Assume theta ~ Uniform. Plot the density function
 theta=seq(0,1,.01)
 plot(theta, dbeta(theta,1,1), type='l')
 
-# Assume X ~ Beta(4, 3). Plot the density function
+# Assume theta ~ Beta(4, 3). Plot the density function
 theta=seq(0,1,.01)
 plot(theta, dbeta(theta,4,3), type='l')
+
+# Assume prior theta ~ Beta(4, 3) and posterior theta ~ Beta(18, 6). Plot prior and posterior distributions
+theta=seq(0,1,.01)
+plot(theta, dbeta(theta,18,6), type='l')
+lines(theta, dbeta(theta,4,3), lty=2)
