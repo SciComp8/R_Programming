@@ -1,0 +1,5 @@
+library(ggplot2)
+g <- ggplot(data=mtcars, aes(x=wt, y=mpg)) + geom_point() + labs(title='MPG vs Weight')
+postscript(file='mpg_weight.eps', paper='special', height=4, width=4, horizontal=F)
+print(g)
+dev.off() # dev.list()
