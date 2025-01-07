@@ -16,6 +16,15 @@ theme_BMA <- function(
     )
 }
 
+theme_set(theme_classic())
+theme_update(
+  legend.position = "bottom",
+  strip.background = element_blank(),
+  axis.text = element_text(size = 10, color = 'black'), 
+  axis.title = element_text(size = 12),
+  legend.text = element_text(size = 10))
+theme.list <- theme_get()
+
 # Pretty contrast color
 # steelblue vs indianred
 # #99CCFF (lightblue) vs #FFCCCC (lightpink)
