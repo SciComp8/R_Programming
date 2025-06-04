@@ -1,4 +1,4 @@
-c(1, 2, 3) |> stats::setNames(c(1, 2, 3))
+c(1, 2, 3) |> stats::setNames(c(1, 2, 3)) -> a
 
 # Equivalent
 a <- c(1, 2, 3)
