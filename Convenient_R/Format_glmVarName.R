@@ -1,6 +1,6 @@
 "%0%" <- function(m, n) paste0(m, n)
 
-alter.glm.rownames <- function(model) {
+alter.glm.rownames <- function(model) { 
   var.names <- names(coef(model))
   for (v in 1:length(var.names)) {
     i <- var.names[v]
