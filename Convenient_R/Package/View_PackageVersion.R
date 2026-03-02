@@ -1,1 +1,2 @@
-sapply(c('DESeq2', 'edgeR', 'limma', 'clusterProfiler', 'org.Hs.eg.db'), packageVersion, simplify=F)
+packageVersion('DESeq2')
+sapply(c('DESeq2', 'edgeR', 'limma', 'clusterProfiler', 'org.Hs.eg.db'), packageVersion, simplify=F) 
